@@ -1,0 +1,6 @@
+@Reveil_Api_HostAddress = http://localhost:5190
+
+GET {{Reveil_Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
