@@ -1,7 +1,7 @@
 
-
 using System.Data.SqlClient;
 
+string angular = "angular";
 var builder = WebApplication.CreateBuilder(args);
 IConfiguration configuration = builder.Configuration;
 
@@ -14,6 +14,8 @@ builder.Services.AddSwaggerGen();
 
 //! création de la Sql connection et nommage de la connection string 
 builder.Services.AddTransient(sp => new SqlConnection(configuration.GetConnectionString("default")));
+builder.Services.AddCors(o => o.AddPolicy(angular, options =>
+    options.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader().AllowCredentials()));
 
 var app = builder.Build();
 
@@ -25,7 +27,7 @@ if (app.Environment.IsDevelopment())
 }
 
 //! app.Use().UseMiddleware();
-
+app.UseCors(angular);
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
